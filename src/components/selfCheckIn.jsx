@@ -31,7 +31,6 @@ export default function SelfCheckIn({
 
   const handleOpen = () => {
     setOpen(true);
-    setVerifiedName(""); // Reset name when starting new verification
   };
   const handleClose = useCallback(() => {
     setOpen(false);
