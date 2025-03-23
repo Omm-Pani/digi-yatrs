@@ -23,8 +23,8 @@ export default function SelfCheckIn({
 
   const [statusMessage, setStatusMessage] = useState("");
   const [isProcessing, setIsProcessing] = useState(false);
-  const [isPerson1Verified, setIsPerson1Verified] = useState(false);
-  const [isPerson2Verified, setIsPerson2Verified] = useState(false);
+  const [isPerson1Verified, setIsPerson1Verified] = useState(true);
+  const [isPerson2Verified, setIsPerson2Verified] = useState(true);
 
   const [person1BoardingPass, setPerson1BoardingPass] = useState(false);
   const [person2BoardingPass, setPerson2BoardingPass] = useState(false);
@@ -63,19 +63,25 @@ export default function SelfCheckIn({
             return;
           }
 
-          const results = detections.map((d) => ({
-            name: trainedModel.findBestMatch(d.descriptor).label,
-            distance: trainedModel.findBestMatch(d.descriptor).distance,
-          }));
+          detections.forEach((d) => {
+            const result = trainedModel.findBestMatch(d.descriptor);
 
-          // Update verified name if we get valid results
-          if (results.length > 0 && results[0].distance < 0.6) {
-            clearInterval(detectionInterval.current);
-            setStatusMessage(`Verified: ${results[0].name}`);
-            setIsPerson1Verified(results[0].name === firstName1);
-            setIsPerson2Verified(results[0].name === firstName2);
-            setTimeout(handleClose, 2000);
-          }
+            // Only update verification state if it is currently false
+            if (result.distance < 0.6) {
+              if (result.label === firstName1 && !isPerson1Verified) {
+                setIsPerson1Verified(true);
+                setStatusMessage(`Verified: ${firstName1}`);
+                clearInterval(detectionInterval.current); // Stop detection loop
+                setTimeout(handleClose, 2000); // Close camera after 2 seconds
+              }
+              if (result.label === firstName2 && !isPerson2Verified) {
+                setIsPerson2Verified(true);
+                setStatusMessage(`Verified: ${firstName2}`);
+                clearInterval(detectionInterval.current); // Stop detection loop
+                setTimeout(handleClose, 2000); // Close camera after 2 seconds
+              }
+            }
+          });
         } catch (error) {
           console.error("Detection error:", error);
         }
@@ -85,8 +91,14 @@ export default function SelfCheckIn({
       setStatusMessage("Detection failed");
       clearInterval(detectionInterval.current);
     }
-  }, [trainedModel, handleClose]);
-
+  }, [
+    trainedModel,
+    handleClose,
+    isPerson1Verified,
+    isPerson2Verified,
+    firstName1,
+    firstName2,
+  ]);
   // Initialize video stream when modal opens
   useEffect(() => {
     const initializeVideo = async () => {
@@ -159,6 +171,7 @@ export default function SelfCheckIn({
               </Button>
             </div>
           )}
+
           {isPerson2Verified && (
             <div className="flex justify-center gap-2 pt-10 pb-3">
               <div className="w-[300px]">
