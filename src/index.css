@@ -1,0 +1,24 @@
+@import "tailwindcss";
+.clip-path-custom1 {
+  clip-path: polygon(
+    50% 0%,
+    80% 10%,
+    97% 34%,
+    100% 60%,
+    71% 36%,
+    50% 29%,
+    26% 37%,
+    0px 59%,
+    3% 32%,
+    20% 10%
+  );
+}
+.clip-path-custom2 {
+  clip-path: polygon(100% 0px, 100% 42%, 68% 43%, 6% 59%, 9% 49%);
+}
+.clip-path-custom3 {
+  clip-path: polygon(87% 49%, 89% 59%, 29% 43%, 0px 43%, 0px 0px);
+}
+* {
+  font-family: "Roboto", Helvetica, Arial, sans-serif;
+}
