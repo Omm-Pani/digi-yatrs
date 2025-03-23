@@ -31,15 +31,6 @@ function App() {
   const [isDetailsSubmitted, setIsDetailsSubmitted] = useState(false);
   const [training, setTraining] = useState(false);
 
-  const [person1, setPerson1] = useState({
-    firstName: firstName1,
-    lastName: lastName1,
-  });
-  const [person2, setPerson2] = useState({
-    firstName: firstName2,
-    lastName: lastName2,
-  });
-
   const [selectedSeats, setSelectedSeats] = useState([]);
 
   const combinedGallery = useMemo(
@@ -101,18 +92,43 @@ function App() {
         <SelectSeat
           setSelectedSeats={setSelectedSeats}
           selectedSeats={selectedSeats}
+          setSelectedMenuItem={setSelectedMenuItem}
         />
       ),
     },
     {
       id: "4",
       name: "Boarding Pass",
-      component: <BoardingPassPage />,
+      component: (
+        <BoardingPassPage
+          setSelectedMenuItem={setSelectedMenuItem}
+          firstName1={firstName1}
+          lastName1={lastName1}
+          firstName2={firstName2}
+          lastName2={lastName2}
+          selectedSeats={selectedSeats}
+          date={date}
+          to={to}
+          from={from}
+        />
+      ),
     },
     {
       id: "5",
       name: "Self Check-in",
-      component: <SelfCheckIn trainedModel={trainedModel} />,
+      component: (
+        <SelfCheckIn
+          trainedModel={trainedModel}
+          firstName1={firstName1}
+          lastName1={lastName1}
+          firstName2={firstName2}
+          lastName2={lastName2}
+          selectedSeats={selectedSeats}
+          date={date}
+          to={to}
+          from={from}
+        />
+      ),
     },
     {
       id: "6",

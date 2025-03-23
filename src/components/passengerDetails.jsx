@@ -937,7 +937,11 @@ export default function PassengerDetails({
         </div>
       </div>
       <div className="w-full mt-20 flex flex-wrap justify-center gap-6 pb-5">
-        <PrimaryButton name={"Previous"} borderRadius={"50px"} />
+        <PrimaryButton
+          name={"Previous"}
+          borderRadius={"50px"}
+          onClick={() => setSelectedMenuItem("1")}
+        />
         <Button
           onClick={() => setSelectedMenuItem("3")}
           variant="contained"

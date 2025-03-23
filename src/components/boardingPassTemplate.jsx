@@ -2,22 +2,24 @@ import QrCode2Icon from "@mui/icons-material/QrCode2";
 import FlightTakeoffIcon from "@mui/icons-material/FlightTakeoff";
 import { Box, Button, Modal, Typography } from "@mui/material";
 import React from "react";
-const boardingPassTemplate = ({ person, seat, date, from, to }) => {
-  const [open, setOpen] = React.useState(false);
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
+const BoardingPassTemplate = ({
+  setOpen,
+  open,
+  firstName,
+  lastName,
+  seat,
+  date,
+  from,
+  to,
+}) => {
   const handleClose = () => {
     setOpen(false);
   };
 
+  const formattedDate = date && date.format("DD MMM YYYY");
+
   return (
     <>
-      <Button variant="outlined" onClick={handleClickOpen}>
-        Open alert dialog
-      </Button>
       <Modal
         open={open}
         onClose={handleClose}
@@ -49,7 +51,7 @@ const boardingPassTemplate = ({ person, seat, date, from, to }) => {
 
                   <div className="flex justify-between px-6 py-4">
                     <h5 className="text-2xl font-bold">
-                      {person.firstName}/{person.lastName}
+                      {firstName}/{lastName}
                     </h5>
                     <h5 className="text-2xl font-bold">
                       {from ? from : "undefined"}T1 To {to ? to : "undefined"}
@@ -103,7 +105,7 @@ const boardingPassTemplate = ({ person, seat, date, from, to }) => {
                                 Date
                               </td>
                               <td className="text-xl font-bold">
-                                {date ? date : "undefined"}
+                                {formattedDate ? formattedDate : "undefined"}
                               </td>
                             </tr>
                           </div>
@@ -163,7 +165,7 @@ const boardingPassTemplate = ({ person, seat, date, from, to }) => {
 
                   <div className="py-4 px-8">
                     <h6 className="font-bold text-xl">
-                      {person.firstName}/{person.lastName}
+                      {firstName}/{lastName}
                     </h6>
                     <h6 className="font-bold text-xl">
                       {from ? from : "undefined"}T1 To {to ? to : "undefined"}
@@ -181,7 +183,7 @@ const boardingPassTemplate = ({ person, seat, date, from, to }) => {
                             Date
                           </td>
                           <td className="text-xl font-bold">
-                            {date ? date : "undefined"}
+                            {formattedDate ? formattedDate : "undefined"}
                           </td>
                         </tr>
                         <tr>
@@ -241,4 +243,4 @@ const boardingPassTemplate = ({ person, seat, date, from, to }) => {
   );
 };
 
-export default boardingPassTemplate;
+export default BoardingPassTemplate;

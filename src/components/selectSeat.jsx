@@ -2,7 +2,11 @@ import { Button, Checkbox } from "@mui/material";
 import React from "react";
 import Seat from "../ui/Seat";
 import PrimaryButton from "../ui/PrimaryButton";
-export default function SelectSeat({ selectedSeats, setSelectedSeats }) {
+export default function SelectSeat({
+  selectedSeats,
+  setSelectedSeats,
+  setSelectedMenuItem,
+}) {
   const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
 
   const handleSeatSelect = (seatNumber) => {
@@ -21,8 +25,13 @@ export default function SelectSeat({ selectedSeats, setSelectedSeats }) {
         Select 2 Seats
       </h4>
       <div className="w-full mt-20 flex flex-wrap justify-center gap-6 pb-5 lowercase">
-        <PrimaryButton name={"Previous"} borderRadius={"50px"} />
+        <PrimaryButton
+          name={"Previous"}
+          borderRadius={"50px"}
+          onClick={() => setSelectedMenuItem("2")}
+        />
         <Button
+          onClick={() => setSelectedMenuItem("4")}
           variant="contained"
           size="medium"
           disabled={selectedSeats.length < 2}
