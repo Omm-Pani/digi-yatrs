@@ -16,6 +16,8 @@ export default function BoardingPassPage({
 }) {
   const [person1BoardingPass, setPerson1BoardingPass] = useState(false);
   const [person2BoardingPass, setPerson2BoardingPass] = useState(false);
+  const seat1 = selectedSeats?.[0] || "N/A";
+  const seat2 = selectedSeats?.[1] || "N/A";
 
   return (
     <>
@@ -87,7 +89,7 @@ export default function BoardingPassPage({
         setOpen={setPerson1BoardingPass}
         firstName={firstName1}
         lastName={lastName1}
-        seat={selectedSeats[0]}
+        seat={seat1}
         date={date}
         from={from}
         to={to}
@@ -97,7 +99,7 @@ export default function BoardingPassPage({
         setOpen={setPerson2BoardingPass}
         firstName={firstName2}
         lastName={lastName2}
-        seat={selectedSeats[1]}
+        seat={seat2}
         date={date}
         from={from}
         to={to}

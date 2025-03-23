@@ -2,6 +2,7 @@ import QrCode2Icon from "@mui/icons-material/QrCode2";
 import FlightTakeoffIcon from "@mui/icons-material/FlightTakeoff";
 import { Box, Button, Modal, Typography } from "@mui/material";
 import React from "react";
+
 const BoardingPassTemplate = ({
   setOpen,
   open,
@@ -16,7 +17,14 @@ const BoardingPassTemplate = ({
     setOpen(false);
   };
 
-  const formattedDate = date && date.format("DD MMM YYYY");
+  const handlePrint = () => {
+    window.print();
+  };
+
+  const formattedDate =
+    date && typeof date.format === "function"
+      ? date.format("DD MMM YYYY")
+      : "Invalid Date";
 
   return (
     <>
@@ -40,7 +48,7 @@ const BoardingPassTemplate = ({
                 className="flex justify-center"
                 style={{ transform: "scale(0.6)" }}
               >
-                {/* part1 */}
+                {/* Part 1 */}
                 <div className="w-[1000px] border border-solid">
                   <div className="border border-b-black h-15 px-6 flex text-[rgb(35,95,223)] items-center gap-4">
                     <FlightTakeoffIcon fontSize="large" />
@@ -54,7 +62,7 @@ const BoardingPassTemplate = ({
                       {firstName}/{lastName}
                     </h5>
                     <h5 className="text-2xl font-bold">
-                      {from ? from : "undefined"}T1 To {to ? to : "undefined"}
+                      {from || "Unknown"} T1 To {to || "Unknown"}
                     </h5>
                   </div>
 
@@ -91,60 +99,45 @@ const BoardingPassTemplate = ({
                     </div>
                   </div>
 
-                  <div className="px-8 py-4 relative flex gap-[24px] ">
+                  <div className="px-8 py-4 relative flex gap-[24px]">
                     <div className="h-[180px] w-[180px]">
                       <QrCode2Icon sx={{ width: "180px", height: "180px" }} />
                     </div>
 
-                    <div>
-                      <table>
-                        <tbody>
-                          <div>
-                            <tr>
-                              <td className="text-xl font-medium w-[110px]">
-                                Date
-                              </td>
-                              <td className="text-xl font-bold">
-                                {formattedDate ? formattedDate : "undefined"}
-                              </td>
-                            </tr>
-                          </div>
-                          <div>
-                            <tr>
-                              <td className="text-xl font-medium w-[110px]">
-                                Seq
-                              </td>
-                              <td className="text-xl font-bold">0102</td>
-                            </tr>
-                          </div>
-                          <div></div>
-                        </tbody>
-                      </table>
-                    </div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td className="text-xl font-medium w-[110px]">
+                            Date
+                          </td>
+                          <td className="text-xl font-bold">
+                            {formattedDate ? formattedDate : "undefined"}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td className="text-xl font-medium w-[110px]">Seq</td>
+                          <td className="text-xl font-bold">0102</td>
+                        </tr>
+                      </tbody>
+                    </table>
 
-                    <div>
-                      <table>
-                        <tbody>
-                          <div>
-                            <tr>
-                              <td className="text-xl font-medium w-[110px]">
-                                Departure
-                              </td>
-                              <td className="text-xl font-bold">1555 Hrs</td>
-                            </tr>
-                          </div>
-                          <div>
-                            <tr>
-                              <td className="text-xl font-medium w-[110px]">
-                                Services
-                              </td>
-                              <td className="text-xl font-bold">NIL</td>
-                            </tr>
-                          </div>
-                          <div></div>
-                        </tbody>
-                      </table>
-                    </div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td className="text-xl font-medium w-[110px]">
+                            Departure
+                          </td>
+                          <td className="text-xl font-bold">1555 Hrs</td>
+                        </tr>
+                        <tr>
+                          <td className="text-xl font-medium w-[110px]">
+                            Services
+                          </td>
+                          <td className="text-xl font-bold">NIL</td>
+                        </tr>
+                      </tbody>
+                    </table>
+
                     <div className="absolute bottom-[2px] text-center w-full">
                       <p className="text-normal text-base text-center">
                         Gate is subject to change and will close 25 minutes
@@ -154,7 +147,7 @@ const BoardingPassTemplate = ({
                   </div>
                 </div>
 
-                {/* part2 */}
+                {/* Part 2 */}
                 <div className="w-[360px] border border-solid">
                   <div className="border border-b-black h-15 px-6 flex items-center gap-[8px] text-[rgb(35,95,223)]">
                     <p className="text-xl font-bold">
@@ -168,7 +161,7 @@ const BoardingPassTemplate = ({
                       {firstName}/{lastName}
                     </h6>
                     <h6 className="font-bold text-xl">
-                      {from ? from : "undefined"}T1 To {to ? to : "undefined"}
+                      {from || "Unknown"} T1 To {to || "Unknown"}
                     </h6>
                     <table>
                       <tbody>
@@ -205,24 +198,18 @@ const BoardingPassTemplate = ({
                       <QrCode2Icon sx={{ width: "100px", height: "100px" }} />
                     </div>
 
-                    <div>
-                      <table>
-                        <tbody>
-                          <tr>
-                            <td className="text-xl font-medium w-[60px]">
-                              Seat
-                            </td>
-                            <td className="text-xl font-bold">{seat}</td>
-                          </tr>
-                          <tr>
-                            <td className="text-xl font-medium w-[60px]">
-                              Seq
-                            </td>
-                            <td className="text-xl font-bold">0102</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td className="text-xl font-medium w-[60px]">Seat</td>
+                          <td className="text-xl font-bold">{seat}</td>
+                        </tr>
+                        <tr>
+                          <td className="text-xl font-medium w-[60px]">Seq</td>
+                          <td className="text-xl font-bold">0102</td>
+                        </tr>
+                      </tbody>
+                    </table>
                   </div>
                 </div>
               </div>
@@ -233,7 +220,7 @@ const BoardingPassTemplate = ({
             <Button onClick={handleClose} variant="outlined">
               Cancel
             </Button>
-            <Button onClick={() => {}} variant="text">
+            <Button onClick={handlePrint} variant="text">
               Print
             </Button>
           </div>

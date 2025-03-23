@@ -51,34 +51,39 @@ export default function SearchFlight({
           freeSolo
           options={indianAirports}
           getOptionLabel={(option) => `${option.code} - ${option.city}`}
-          renderOption={(props, option) => (
-            <li
-              {...props}
-              style={{
-                backgroundColor: "#f2f0f0",
-                width: "100%",
-                display: "flex",
-                alignItems: "center",
-                padding: "0",
-              }}
-            >
-              <Box
-                sx={{
-                  display: "flex",
+          renderOption={(props, option) => {
+            // Extract the `key` from `props` and pass it directly to the `<li>` element
+            const { key, ...restProps } = props;
+            return (
+              <li
+                key={key} // Pass the key directly here
+                {...restProps} // Spread the remaining props
+                style={{
+                  backgroundColor: "#f2f0f0",
                   width: "100%",
-                  justifyContent: "center",
-                  padding: "10px",
-                  "&:hover": { backgroundColor: "#e0e0e0" },
+                  display: "flex",
+                  alignItems: "center",
+                  padding: "0",
                 }}
               >
-                <FlightTakeoffIcon sx={{ width: "20%", marginTop: "6px" }} />
-                <Box sx={{ width: "80%" }}>
-                  <Typography fontWeight="bold">{`${option.code} - ${option.city}`}</Typography>
-                  <Typography variant="body2">{option.name}</Typography>
+                <Box
+                  sx={{
+                    display: "flex",
+                    width: "100%",
+                    justifyContent: "center",
+                    padding: "10px",
+                    "&:hover": { backgroundColor: "#e0e0e0" },
+                  }}
+                >
+                  <FlightTakeoffIcon sx={{ width: "20%", marginTop: "6px" }} />
+                  <Box sx={{ width: "80%" }}>
+                    <Typography fontWeight="bold">{`${option.code} - ${option.city}`}</Typography>
+                    <Typography variant="body2">{option.name}</Typography>
+                  </Box>
                 </Box>
-              </Box>
-            </li>
-          )}
+              </li>
+            );
+          }}
           renderInput={(params) => (
             <TextField {...params} label="From" sx={{ fontWeight: "700" }} />
           )}
@@ -102,34 +107,38 @@ export default function SearchFlight({
           freeSolo
           options={indianAirports}
           getOptionLabel={(option) => `${option.code} - ${option.city}`}
-          renderOption={(props, option) => (
-            <li
-              {...props}
-              style={{
-                backgroundColor: "#f2f0f0",
-                width: "100%",
-                display: "flex",
-                alignItems: "center",
-                padding: "0",
-              }}
-            >
-              <Box
-                sx={{
-                  display: "flex",
+          renderOption={(props, option) => {
+            const { key, ...restProps } = props;
+            return (
+              <li
+                key={key}
+                {...restProps}
+                style={{
+                  backgroundColor: "#f2f0f0",
                   width: "100%",
-                  justifyContent: "center",
-                  padding: "10px",
-                  "&:hover": { backgroundColor: "#e0e0e0" },
+                  display: "flex",
+                  alignItems: "center",
+                  padding: "0",
                 }}
               >
-                <FlightTakeoffIcon sx={{ width: "20%", marginTop: "6px" }} />
-                <Box sx={{ width: "80%" }}>
-                  <Typography fontWeight="bold">{`${option.code} - ${option.city}`}</Typography>
-                  <Typography variant="body2">{option.name}</Typography>
+                <Box
+                  sx={{
+                    display: "flex",
+                    width: "100%",
+                    justifyContent: "center",
+                    padding: "10px",
+                    "&:hover": { backgroundColor: "#e0e0e0" },
+                  }}
+                >
+                  <FlightTakeoffIcon sx={{ width: "20%", marginTop: "6px" }} />
+                  <Box sx={{ width: "80%" }}>
+                    <Typography fontWeight="bold">{`${option.code} - ${option.city}`}</Typography>
+                    <Typography variant="body2">{option.name}</Typography>
+                  </Box>
                 </Box>
-              </Box>
-            </li>
-          )}
+              </li>
+            );
+          }}
           renderInput={(params) => (
             <TextField {...params} label="To" className="font-bold" />
           )}

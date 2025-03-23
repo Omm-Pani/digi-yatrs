@@ -108,8 +108,8 @@ function App() {
           lastName2={lastName2}
           selectedSeats={selectedSeats}
           date={date}
-          to={to}
-          from={from}
+          to={to.city}
+          from={from.city}
         />
       ),
     },
@@ -125,8 +125,8 @@ function App() {
           lastName2={lastName2}
           selectedSeats={selectedSeats}
           date={date}
-          to={to}
-          from={from}
+          to={to.city}
+          from={from.city}
         />
       ),
     },
